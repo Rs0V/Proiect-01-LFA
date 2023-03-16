@@ -1,4 +1,6 @@
-q0 1 q1
-q1 1 q1
-q1 0 q2
-q2
+q0 a q1
+q0 a q2
+q1 a q1
+q1 b q2
+q2 b q3
+q3
