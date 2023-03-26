@@ -102,7 +102,7 @@ void automat(STR& begin_state, STR_LIST& end_states, DICT& dict)
 	while (run)
 	{
 		STR input;
-		std::cin >> input;
+		std::getline(std::cin, input);
 		if (input == "/stop" || input == ".stop")
 			run = false;
 		else
@@ -118,14 +118,20 @@ void automat(STR& begin_state, STR_LIST& end_states, DICT& dict)
 			// Afiseaza pt toate cuv. (substring-uri din cuv. original) sau doar pentru cuv. original 
 			#if PRINT_SWITCH
 			for (auto& word : words)
-				if (word.first != "")
-					if (!word.second.empty())
-					{
+				if (!word.second.empty())
+				{
+					if (word.first == "")
+						std::cout << "cuvantul vid este acceptat\ndrumul: ";
+					else
 						std::cout << "cuvantul " << word.first << " este acceptat\ndrumul: ";
-						for (STR& state : word.second)
-							std::cout << state << ' ';
-						std::cout << "\n\n";
-					}
+
+					for (STR& state : word.second)
+						std::cout << state << ' ';
+					std::cout << "\n\n";
+				}
+				else
+					if (word.first == "")
+						std::cout << "cuvantul vid nu este acceptat\n\n";
 					else
 						std::cout << "cuvantul " << word.first << " nu este acceptat\n\n";
 			#else
@@ -133,13 +139,20 @@ void automat(STR& begin_state, STR_LIST& end_states, DICT& dict)
 			if (word != words.end())
 				if (!word->second.empty())
 				{
-					std::cout << "cuvantul " << word->first << " este acceptat\ndrumul: ";
+					if (word->first == "")
+						std::cout << "cuvantul vid este acceptat\ndrumul: ";
+					else
+						std::cout << "cuvantul " << word->first << " este acceptat\ndrumul: ";
+
 					for (STR& state : word->second)
 						std::cout << state << ' ';
 					std::cout << "\n\n";
 				}
 				else
-					std::cout << "cuvantul " << word->first << " nu este acceptat\n\n";
+					if (word->first == "")
+						std::cout << "cuvantul vid nu este acceptat\n\n";
+					else
+						std::cout << "cuvantul " << word->first << " nu este acceptat\n\n";
 			#endif
 		}
 	}
